@@ -85,7 +85,7 @@ in
     {
       home.packages = [ cfg.package ];
 
-      xdg.configFile."walker/config.toml".source = mkIf (
+      xdg.configFile."walker/config.toml".source = mkIf (builtins.stringLength (cfg.config) == 0) (
         tomlFormat.generate "walker-config.toml" cfg.config
       );
 
