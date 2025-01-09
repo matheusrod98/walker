@@ -85,9 +85,9 @@ in
     {
       home.packages = [ cfg.package ];
 
-      xdg.configFile."walker/config.toml".source = mkIf (
-        builtins.stringLength (builtins.toString (cfg.config)) == 0
-      ) (tomlFormat.generate "walker-config.toml" cfg.config);
+      xdg.configFile."walker/config.toml".source = mkIf (cfg.config != { }) (
+        tomlFormat.generate "walker-config.toml" cfg.config
+      );
 
       systemd.user.services.walker = mkIf cfg.runAsService {
         Unit.Description = "Walker - Application Runner";
